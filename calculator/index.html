@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Simple Calculator</title>
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: linear-gradient(135deg, #89fffd, #ef32d9);
+        margin: 0;
+      }
+
+      .calculator {
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        width: 320px;
+      }
+
+      #display {
+        width: 90%;
+        padding: 15px;
+        font-size: 24px;
+        margin-bottom: 15px;
+        border: none;
+        border-radius: 10px;
+        background: #f3f3f3;
+        text-align: right;
+        outline: none;
+      }
+
+      .buttons {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+      }
+
+      button {
+        padding: 15px;
+        font-size: 18px;
+        font-weight: bold;
+        border: none;
+        border-radius: 10px;
+        background: #e3e3e3;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      button:hover {
+        background: #d0d0d0;
+        transform: scale(1.05);
+      }
+
+      .operator {
+        background: #ff9f43;
+        color: white;
+      }
+
+      .operator:hover {
+        background: #ff7f0f;
+      }
+
+      .equal {
+        background: #1dd1a1;
+        color: white;
+        grid-column: span 2;
+      }
+
+      .equal:hover {
+        background: #10ac84;
+      }
+
+      .clear {
+        background: #ff6b6b;
+        color: white;
+      }
+
+      .clear:hover {
+        background: #ee5253;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="calculator">
+      <input type="text" id="display" disabled value="0" readonly />
+      <div class="buttons">
+        <button class="clear" onclick="clearDisplay()">C</button>
+        <button class="operator" onclick="toggleSign('+/-')">+/-</button>
+        <button class="operator" onclick=" percentage('%')">%</button>
+        <button class="operator" onclick="appendValue('/')">÷</button>
+
+        <button onclick="appendValue('7')">7</button>
+        <button onclick="appendValue('8')">8</button>
+        <button onclick="appendValue('9')">9</button>
+        <button class="operator" onclick="appendValue('*')">×</button>
+
+        <button onclick="appendValue('4')">4</button>
+        <button onclick="appendValue('5')">5</button>
+        <button onclick="appendValue('6')">6</button>
+        <button class="operator" onclick="appendValue('-')">-</button>
+
+        <button onclick="appendValue('1')">1</button>
+        <button onclick="appendValue('2')">2</button>
+        <button onclick="appendValue('3')">3</button>
+        <button class="operator" onclick="appendValue('+')">+</button>
+
+        <button onclick="appendValue('0')">0</button>
+        <button onclick="appendValue(',')">,</button>
+        <button class="equal" onclick="calculateResult()">=</button>
+      </div>
+    </div>
+
+    <script>
+      const display = document.getElementById("display");
+      function appendValue(val) {
+        if (display.value === "0") {
+          display.value = val;
+          display.value += val;
+        }
+      }
+
+      function clearDisplay() {
+        document.getElementById("display").value = "0";
+      }
+      function toggleSign() {
+        if (display.value) {
+          display.value = String(parseFloat(display.value) * -1);
+        }
+      }
+
+      function percentage() {
+        const display = document.getElementById("display");
+        if (display.value) {
+          display.value = String(parseFloat(display.value) / 100);
+        }
+      }
+      function calculateResult() {
+        try {
+          document.getElementById("display").value = eval(
+            document.getElementById("display").value
+          );
+        } catch (error) {
+          document.getElementById("display").value = "Invalid expression";
+        }
+      }
+    </script>
+  </body>
+</html>
